@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!--///是否自增-->
+<!--@property (nonatomic,assign) BOOL dataIsAutoincrement;-->
+<!--///是否不为空-->
+<!--@property (nonatomic, assign) BOOL dataIsNotNull;-->
+<!--///是否主键-->
+<!--@property (nonatomic, assign) BOOL dataIsPrimaryKey;-->
+<!--///是否唯一值-->
+<!--@property (nonatomic, assign) BOOL dataIsUnique;-->
+<!--///默认值 :DEFAULT-->
+<!--@property (nonatomic, copy) NSString *dataDefault;-->
+<!--///默认值 :Check-->
+<!--@property (nonatomic, copy) NSString *dataCheck;-->
+<!---->
+<!--///关联外键表-名字-->
+<!--@property (nonatomic, copy) NSString *dataForeignTable;-->
+<!--///关联外键表-字段-->
+<!--@property (nonatomic, copy) NSString *dataForeignKey;-->
+
+<xs:schema>
+<xs:element name="ColumnType">
+    <xs:simpleType>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Text"/>
+            <xs:enumeration value="Integer"/>
+            <xs:enumeration value="Blob"/>
+            <xs:enumeration value="Real"/>
+            <xs:enumeration value="Numeric"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:element>
+
+<!--表名: 极其列属性-->
+<xs:simpleType name="NSString"> <xs:restriction base="xs:string"/></xs:simpleType>
+<xs:simpleType name="BOOL"> <xs:restriction base="xs:boolean"/></xs:simpleType>
+
+<!--列类型-->
+<xs:complexType name="Column">
+        <xs:attribute name="name" type= NSString  use="required"/>
+        <xs:attribute name="type" type= ColumnType use="required"/>
+        <xs:attribute name="isPrimaryKey" type=BOOL />
+        <xs:attribute name="isAutoincrement" type= BOOL/>
+        <xs:attribute name="isNotNull" type= BOOL/>
+        <xs:attribute name="isUnique" type= BOOL />
+        <xs:attribute name="default" type=NSString />
+        <xs:attribute name="check" type=NSString />
+        <xs:attribute name="foreignTable" type=NSString />
+        <xs:attribute name="foreignKey" type=NSString />
+</xs:complexType>
+
+<!--表类型-->
+<xs:complexType name="Table">
+    <xs:attribute name="tableName" type= NSString/>
+    <xs:sequence>
+        <xs:element name="column" maxOccurs ="unbounded" type = Column />
+    </xs:sequence>
+</xs:complexType>
+
+</xs:schema>
+
+<!--config you Table by Here --><!--config you Table by Here --><!--config you Table by Here --><!--config you Table by Here -->
+
+<!--CREATE TABLE "TableA" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, "userId" INTEGER, "dataId" TEXT, "aMapId" TEXT, "dataType" TEXT, "dataTitle" TEXT, "dataLandMark" TEXT, "insertTime" TEXT)-->
+
+<Table tableName = "tableA">
+    <Column name="id" type = Integer isPrimaryKey =1 isAutoincrement = 1 isNotNull = 1 isUnique = 1  />
+    <Column name="dataName" type = Text />
+    <Column name="userId" type = Text />
+    <Column name="dataId" type = Integer />
+    <Column name="aMapId" type = Text />
+    <Column name="dataType" type = Text />
+    <Column name="dataTitle" type = Text />
+    <Column name="dataLandMark" type = Text />
+    <Column name="insertTime" type = Text />
+</Table>
+
